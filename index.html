@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<div id='wx_pic' style='margin:0 auto;display:none;'>
+			<img src='img/300.jpg'>
+		</div>
+		<meta charset="utf-8" />
+		<title>520来啦，测一测你爱谁？</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<style type="text/css">
+			/* *{
+				box-sizing: border-box;
+			} */
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				/* 避免出现横向或纵向滚动 */
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+				background: #ef94ac;
+				/* 粉色背景 */
+				position: relative;
+			}
+
+			#loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				z-index: 100;
+				background: #ef94ac;
+				font-size: 0;
+			}
+
+			#loading::after {
+				content: '';
+				background: url(img/loading.png) no-repeat;
+				background-size: cover;
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translateX(-50%) translateY(-50%);
+			}
+
+			#scene1 {
+				left: 0;
+			}
+
+			#scene2 {
+				left: 100%;
+			}
+
+			#scene3 {
+				left: 100%;
+				background: url(img/resultbg.jpg) no-repeat 50% 50%;
+				background-size: cover;
+			}
+
+			#scene1,
+			#scene2,
+			#scene3 {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+			}
+
+			.slogan-img {
+				opacity: 0;
+				font-size: 0;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			.slogan-text {
+				opacity: 0;
+				position: absolute;
+				color: #fff;
+				font-size: 12px;
+				text-align: center;
+			}
+
+			#heart {
+				top: 15%;
+				background: url(img/heart.png) no-repeat;
+				background-size: cover;
+				width: 122px;
+				height: 98px;
+			}
+
+			#t0 {
+				top: 50%;
+				background: url(img/1.png) no-repeat;
+				background-size: cover;
+				width: 132px;
+				height: 61px;
+			}
+
+			#t1 {
+				top: 65%;
+				background: url(img/2.png) no-repeat;
+				background-size: cover;
+				width: 220px;
+				height: 20px;
+			}
+
+			#t2 {
+				top: 73%;
+				background: url(img/3.png) no-repeat;
+				background-size: cover;
+				width: 202px;
+				height: 41px;
+			}
+
+			#sbtn {
+				top: 80%;
+				background: url(img/start.png) no-repeat;
+				background-size: cover;
+				width: 240px;
+				height: 79px;
+			}
+
+			#t3 {
+				top: 14px;
+				position: absolute;
+				width: 100%;
+			}
+
+			#lbtn {
+				top: 95%;
+				background: url(img/show.png) no-repeat;
+				background-size: cover;
+				width: 240px;
+				height: 56px;
+			}
+
+			#t4 {
+				top: 40%;
+				background: url(img/4.png) no-repeat;
+				background-size: cover;
+				width: 156px;
+				height: 52px;
+			}
+
+			#t5 {
+				top: 53%;
+				background: url(img/5.png) no-repeat;
+				background-size: cover;
+				width: 160px;
+				height: 22px;
+			}
+
+			#t6 {
+				top: 60%;
+				background: url(img/6.png) no-repeat;
+				background-size: cover;
+				width: 166px;
+				height: 40px;
+			}
+
+			#t7 {
+				top: 115%;
+				position: absolute;
+				width: 100%;
+			}
+
+			#ercode {
+				left: 50%;
+				top: 75%;
+				opacity: 0;
+				transform: translateX(-50%);
+				position: absolute;
+
+			}
+
+			#musicplayer {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+			}
+
+			#musicplayer button {
+				position: absolute;
+				right: 10px;
+				top: 10px;
+				width: 50px;
+				height: 50px;
+				border: 0;
+			}
+
+			#musicon {
+				background: url(img/musicon.png);
+				background-size: cover;
+			}
+
+			#musicoff {
+				background: url(img/musicoff.png);
+				background-size: cover;
+			}
+
+			.hidden {
+				display: none;
+			}
+
+			/* 制作心跳的动画 */
+			@keyframes heartbeat {
+
+				0%, 100% {
+					/* transform: translateX(-50%) scale(1); */
+					width:122px; height:98px;
+				}
+
+				50% {
+					/* transform: translateX(-50%) scale(1.5); */
+					width:158px; height:127px; /* 1.3倍 */
+				}
+
+			}
+		</style>
+	</head>
+	<body>
+		<!-- loading界面 -->
+		<div id="loading">加载中。。。</div>
+		<!-- 初始界面 -->
+		<div id="scene1">
+			<div id="heart" class="slogan-img">爱心</div>
+			<div id="t0" class="slogan-img">520</div>
+			<div id="t1" class="slogan-img">这真是个适合表达爱意的日子</div>
+			<div id="t2" class="slogan-img">你爱的是谁？</div>
+			<div id="sbtn" class="slogan-img">马上测一测！</div>
+		</div>
+		<!-- 交互界面 -->
+		<div id="scene2">
+			<div id="t3" class="slogan-text">请不断点击屏幕，发现你最爱的TA</div>
+			<div id="lbtn" class="slogan-img">爱在华师大！</div>
+		</div>
+		<!-- 结果界面 -->
+		<div id="scene3">
+			<div id="t4" class="slogan-img">ECNU</div>
+			<div id="t5" class="slogan-img">师大学子的一生牵绊</div>
+			<div id="t6" class="slogan-img">520说爱你</div>
+			<div id="t7" class="slogan-text">520，我们的微信服务平台上线啦<br>更多更好的服务等着你！</div>
+			<div id="ercode"><img src="img/ercode.png" width="142" height="142" alt="二维码"></div>
+		</div>
+		<!-- 音乐控制界面 -->
+		<div id="musicplayer">
+			<button id="musicon" class="hidden"></button>
+			<button id="musicoff"></button>
+			<audio src="loop.mp3" loop id="music"></audio>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"> </script>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("loading").style.display = "none";
+				showScene1()
+			};
+			//获取每个元素对象
+			var sbtn = document.getElementById("sbtn");
+			var lbtn = document.getElementById("lbtn");
+			var scene1 = document.getElementById("scene1");
+			var scene2 = document.getElementById("scene2");
+			var scene3 = document.getElementById("scene3");
+			var t0 = document.getElementById("t0");
+			var t1 = document.getElementById("t1");
+			var t2 = document.getElementById("t2");
+			var t3 = document.getElementById("t3");
+			var t4 = document.getElementById("t4");
+			var t5 = document.getElementById("t5");
+			var t6 = document.getElementById("t6");
+			var t7 = document.getElementById("t7");
+			var ercode = document.getElementById("ercode");
+			var heart = document.getElementById("heart");
+			var music = document.getElementById("music");
+			var musicoff = document.getElementById("musicoff");
+			var musicon = document.getElementById("musicon");
+			
+			//Scene1初始界面动画效果
+			function showScene1() {
+				heart.style.animation = "heartbeat 1s linear infinite";
+				heart.style.opacity="1";
+				heart.style.transition="all 1s";
+				t0.style.opacity="1";
+				t0.style.transition="all 1s";
+				t0.style.top="40%";
+				t1.style.opacity="1";
+				t1.style.transition="all 1s 0.5s";
+				t1.style.top="57%";
+				t2.style.opacity="1";
+				t2.style.transition="all 1s 1s";
+				t2.style.top="65%";
+				sbtn.style.opacity="1";
+				sbtn.style.transition="all 1s 1.7s";
+				sbtn.style.top="75%";
+			}
+			
+			musicoff.onclick = function(){
+				musicoff.className = musicoff.className ? "":"hidden";
+				musicon.className = musicon.className ? "":"hidden";
+				music.play();
+			}
+			
+			musicon.onclick = function(){
+				musicoff.className = musicoff.className ? "":"hidden";
+				musicon.className = musicon.className ? "":"hidden";
+				music.pause();
+			}
+			
+			var p = [[227,209],[208,195],[188,180],[178,173],[217,202],[152,194],[123,215],[94,237],[112,222],[133,208],[143,201],[103,229],[168,195],[198,216],[227,237],[208,223],[188,208],[178,201],[217,230],[152,221],[123,242],[94,264],[112,249],[133,235],[143,228],[103,256],[168,222],[198,243],[227,264],[208,250],[188,235],[178,228],[217,257],[152,250],[123,271],[112,278],[133,264]];
+			
+			p.sort(function(){return Math.random()>0.5?-1:1;});  
+			
+			var drawMode = false; //游戏绘制状态控制
+			sbtn.onclick = function(){
+				//初始界面向左滑出
+				scene1.style.left="-100%";
+				scene1.style.transition="left 1s";
+				//交互界面向左滑入
+				scene2.style.left="0%";
+				scene2.style.transition="left 1s";
+				//文本逐渐显示
+				t3.style.opacity="1";
+				t3.style.transition="opacity 2s";
+				drawMode=true;
+			}
+			
+			var mi = 0; //记录已点按的圆圈数,用来判断是否已绘制完成
+			var pl = p.length; //所有圆圈数量
+			document.addEventListener("touchstart", getPosition);
+			
+			function getPosition(event){
+				if(drawMode){//在绘制模式下才可以绘制
+					// event.preventDefault();
+					//横向偏移量,用来让绘图居中
+					var xbias = (window.innerWidth - 320)/2;
+					var touch = event.touches[0]; //获取第一个触摸点的信息
+					var point = {x: 0, y: 0}; //创建一个对象来储存触点坐标
+					point.x = Number(touch.pageX); //记录触点X坐标
+					point.y = Number(touch.pageY); //记录触点Y坐标
+					if(mi<pl){//pl=149
+						var objdiv = document.createElement("DIV");//创建DIV节点  
+						var objname="s_" + mi;//设置name属性  
+						objdiv.id = objname;//设置id 
+						objdiv.style.position = 'absolute'; //使元素绝对定位
+						objdiv.style.display = 'block';
+						objdiv.style.top = point.y + "px";//设置元素起始位置为触摸点位置  
+						objdiv.style.left = point.x + "px";  
+						//设置元素形状为圆形，背景为白色，大小为12像素
+						objdiv.style.background = '#fff'; 
+						objdiv.style.borderRadius = '50%';
+						objdiv.style.width = '12px';
+						objdiv.style.height = '12px'; 
+						objdiv.innerHTML=" ";//设置元素的内容为空白  
+						scene2.appendChild(objdiv);//将DIV加载到scene2中
+						
+						document.onmouseup=function(event){
+							event.preventDefault();
+							objdiv.style.transition="all 1s";
+							objdiv.style.top = (p[mi][1]+"px");
+							objdiv.style.left = (p[mi][0]+xbias+"px");
+							mi++;
+						}
+					}
+					else{
+						drawMode = false;
+						lbtn.style.transition="all 1s";
+						lbtn.style.top="80%";
+						lbtn.style.opacity="1";
+					}
+				}
+			}
+			
+			lbtn.onclick = function(){
+				//交互界面向左滑出
+				scene2.style.left="-100%";
+				scene2.style.transition="all 1s";
+				//结果界面向左滑入
+				scene3.style.left="0%";
+				scene3.style.transition="all 1s";
+				
+				t4.style.opacity="1";
+				t4.style.top="10%";
+				t4.style.transition="all 1s 0.5s";
+				
+				t5.style.opacity="1";
+				t5.style.top="23%";
+				t5.style.transition="all 1s 0.8s";
+				
+				t6.style.opacity="1";
+				t6.style.top="30%";
+				t6.style.transition="all 1s 1s";
+				
+				t7.style.opacity="1";
+				t7.style.top="85%";
+				t7.style.transition="all 1s 2s";
+				
+				ercode.style.opacity="1";
+				ercode.style.top="45%";
+				ercode.style.transition="all 1s 1.5s";
+			}
+			
+			
+			
+			
+		</script>
+
+	</body>
+</html>
